@@ -4,8 +4,11 @@ let img = document.querySelector(".imagem");
 let final = document.querySelector(".final");
 let sim = document.querySelector("#sim");
 let nao = document.querySelector("#nao");
-const p = 'VITORIA'; //TEM Q LIGAR O CAPS LOCK
-    let word=[];
+const nomes = ['CACHORRO','GATO','PAPAGAIO','CAVALO','PEIXE','ORNITORRINCO','BALEIA','GOLFINHO','PATO','URSO','BARATA']
+let p = nomes[getRandomInt(0, nomes.length)]; //TEM Q LIGAR O CAPS LOCK
+    
+
+let word=[];
     for(let i in p){
         word[i] = '*';
     }
@@ -72,6 +75,7 @@ const p = 'VITORIA'; //TEM Q LIGAR O CAPS LOCK
     }
     sim.addEventListener("click",function (){
         final.style.display = 'none';
+        p = nomes[getRandomInt(0, nomes.length)];
         word=[];
         for(let i in p){
             word[i] = '*';
@@ -82,6 +86,13 @@ const p = 'VITORIA'; //TEM Q LIGAR O CAPS LOCK
         img.style.backgroundImage = 'url(img/forca1.png)';
     }, false);
     nao.addEventListener("click",function (){
+        pontuador=0;
         final.style.display = 'none';
         img.style.backgroundImage = 'url(img/forca1.png)';
     }, false);
+
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min;
+      }
