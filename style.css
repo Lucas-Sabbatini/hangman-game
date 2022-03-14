@@ -173,5 +173,9 @@ transition: all 0.3s;
         font-size:8vw;
 
     }
-    
+    .final{
+        height:400px;
+        width:300px;
+        top: 50px;
+    }
 }
