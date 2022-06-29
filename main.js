@@ -1,45 +1,24 @@
+//const { Socket } = require("socket.io");
+
 let result = document.querySelector(".resultado");
 let inputs = document.querySelectorAll("section div")
 let img = document.querySelector(".imagem");
 let final = document.querySelector(".final");
 let sim = document.querySelector("#sim");
 let nao = document.querySelector("#nao");
-const nomes = ['CACHORRO','GATO','PAPAGAIO','CAVALO','PEIXE','ORNITORRINCO','BALEIA','GOLFINHO','PATO','URSO','BARATA']
-let p = nomes[getRandomInt(0, nomes.length)]; //TEM Q LIGAR O CAPS LOCK
-    
 
-let word=[];
-    for(let i in p){
-        word[i] = '*';
+    function enviarServer(palpite){
+        socket.emit("palpite", palpite);
+
     }
-    result.textContent= word.join(' ')
+
+    socket.on("message", x=> {result.textContent = x})
+
     for(let i of inputs) {
-        i.addEventListener("click",function (){forca(i.textContent,p)}, false);
+        i.addEventListener("click",function (){enviarServer(i.textContent)}, false);
     }
-    let pontuador=0;
-    let errorcounter=0;
-    function forca(a,p){
-    if (errorcounter>6) return 0;
-    let errou = true; 
-        for(let i=0; i<p.length; i++) {
-            if (a==p[i]&&a!==word[i]) {
-                pontuador++; 
-                errou = false;
-                word[i]=p[i];
-                
-            }
-            
-        }
-        if (errou) error();
-        result.textContent= word.join('  ');
-        if(pontuador==p.length){
-            reset(1);
-        }
-        
-    }
-
-    function error(){
-        errorcounter++;
+    socket.on("error",errorcounter=>{
+        console.log(errorcounter);
         switch(errorcounter){
             case 1:
                 img.style.backgroundImage = 'url(img/forca2.png)';
@@ -61,38 +40,26 @@ let word=[];
             break;
             case 7:
                 img.style.backgroundImage = 'url(img/forca8.png)';
-                reset(0);
             break;
         }
+    })
+        socket.on('fim', win=>{
+            console.log("final");
+            if (!win){
+                document.querySelector(".final h3").textContent = 'Você perdeu, mas quem sabe na próxima?';
+            }
 
-    }
-    function reset(win) {
-        if (!win){
-            document.querySelector(".final h3").textContent = 'Você perdeu, mas quem sabe na próxima?';
-        }
         final.style.display = 'flex';
+        })
         
-    }
+        
+   
     sim.addEventListener("click",function (){
+        socket.emit('sim');
+        document.querySelector(".final h3").textContent = 'Parabéns, você ganhou!!';
         final.style.display = 'none';
-        p = nomes[getRandomInt(0, nomes.length)];
-        word=[];
-        for(let i in p){
-            word[i] = '*';
-        }
-        result.textContent= word.join(' ');
-        pontuador=0;
-        errorcounter=0;
         img.style.backgroundImage = 'url(img/forca1.png)';
     }, false);
     nao.addEventListener("click",function (){
-        pontuador=0;
         final.style.display = 'none';
-        img.style.backgroundImage = 'url(img/forca1.png)';
     }, false);
-
-    function getRandomInt(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min)) + min;
-      }
