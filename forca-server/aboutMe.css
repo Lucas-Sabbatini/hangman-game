@@ -1,0 +1,82 @@
+header{
+    background-image: url(img/codingBackground.jpeg);
+    background-size: cover;
+}
+
+.paragraph p{
+    margin-bottom:20px;
+    text-align: left;
+}
+
+#curriculum{
+    
+    margin-top: 70px;
+    display: flex;
+    justify-content:center;
+    flex-wrap: wrap;
+    max-width: 960px;
+}
+
+.currelemtns{
+    width: 50%;
+    height: 300px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    min-width: 310px;
+}
+.currelemtns#fotos{
+    justify-content: flex-start;
+}
+.currelemtns #foto{
+    height: 250px;
+    border-radius: 20px;
+    margin-left: 40px;
+    margin: 0;
+}
+#icons{
+    height: 40px;
+    margin: 20px;
+}
+.currelemtns a{
+    margin-right: 160px;
+}
+.currelemtns h3{
+    font-size: 20px;
+    text-decoration: underline;
+    text-decoration-color: #5e5e5e;
+    margin-bottom: 25px;
+}
+
+.currelemtns p{
+    margin: 0 20px;
+    margin-bottom: 0;
+    width: 80%;
+    color:#5e5e5e;
+}
+
+#techinical p{
+    width: 50%;
+    margin: 0px;
+    margin-bottom: 5px;
+}
+#languages{
+    justify-content: flex-start;
+}
+footer h2{
+    font-size: 20px;
+}
+
+@media (max-width:455px) {
+    #techinical{
+        flex-wrap: nowrap;
+        height: auto;
+    }
+    footer h2{
+        font-size: 12px;
+    }
+   
+    
+}

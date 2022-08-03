@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="landstyle.css">
+        <link rel="stylesheet" href="aboutMe.css">
+        <link rel="shortcut icon" href="img/favicom.png" type="image/x-icon">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Calligraffitti&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap" rel="stylesheet">
+        <script src="/socket.io/socket.io.js"></script>
+        <title>Forca</title>
+    </head>
+    <body>
+        <header>
+            <div class="social-icon" id="top-social-icon">
+                <a href=""><img class="imagens"  src="img/Instagram.webp" alt=""></a>
+                <a href=""><img class="imagens" src="img/Facebook.webp" alt=""></a>
+                <a href=""><img class="imagens" src="img/Twitter.webp" alt=""></a>
+            </div>
+            <div id="content">
+                <h1 class="header-text">UM POUCO MAIS SOBRE MIM: LUCAS JANOT</h1>
+            </div>
+        </header>
+        <main>
+            <div class="paragraph">
+                <h2>PRIMEIRAMENTE, COMO ISSO REALMENTE FUNCIONA?</h2>
+                <p>&emsp;Tudo aqui começa quando se clica no botão de pesquisar no campo de input, depois disso o front end manda a palavra pesquisada para o back. Além disso, na comunicação entre front e backend acabei optando por utilizar websocket, e tive de aprender bastante sobre essa solução.</p>
+                <p>&emsp;Agora já com a palvra em mãos o back end faz uma requisição de pesquisa à API do Twitter, que tem como resposta um objeto com alguns poucos twitts e outras duas informações sobre eles: o id de cada twitt e o link para o twitt no próprio twitter. Essa etapa do serviço ainda tem a incumbência de descartar o id e chamar o próximo programa tendo como input o conteúdo bruto dos twitts adiquiridos com a requisição.</p>
+                <p>&emsp;Depois dessa requisição e filtragem inicial outro programa é executando para gerar uma única palavra secreta. No processo de construção dessa etapa eu desocbri um tipo de programa muito interessante chamado "word tagger", esse programa consiste em uma inteligência artificial que consegue classificar a classe gramatical das palavras. Então ,com um pouco de pesquisa, eu achei um repositório no github com um modelo já treinado e pronto para ser usado na nossa língua portuguesa. Depois disso era só colocar essa inteligência artificial ao meu favor: fiz com que ela descartasse cada palavra que não fosse um substantivo e escolhesse o substantivo com o maior número de palavras, e essa palavra é a que você tem que adivinhar no jogo!!! :) </p>
+                <p>&emsp;Por fim, além disso tudo que eu já falei, esse projeto foi hospedado na amazon aws então eu tive de aprender bastante sobre linux e certificacdos ssl, tls esse tipo de coisa.</p>
+            </div>
+            <div class="paragraph">
+                <h2>Realmente sobre mim:</h2>
+                <div id="curriculum">
+                    <div class="currelemtns">
+                        <h3>Lucas Janot</h3>
+                        <p>• lucassabbatinijp@gmail.com</p>
+                        <p>• (62) 99966-8603</p>
+                        <p>• Uberlândia - MG</p>
+                    </div>
+                    <div class="currelemtns" id="fotos">
+                        <img id="foto" src="img/me.jpg" alt="foto de perfil">
+                        <a href="https://github.com/Lucas-Sabbatini"><img id="icons" src="img/github-a.png" alt="icon"></a>
+                        <a href="https://www.instagram.com/luacsas/"><img id="icons" src="img/instagram-a.png" alt="icon"></a>
+                        <a href="https://www.linkedin.com/in/lucas-janot-8ba84a246/"><img id="icons" src="img/linkedin-a.png" alt="icon"></a>
+                    </div>
+                    <div class="currelemtns">
+                        <h3>Formação :</h3>
+                        <p>Cursando Bacharelado em Ciências da Computação </p>
+                        <p>&emsp;UFU - Universidade Federal de Uberlândia</p>
+                    </div>
+                    <div class="currelemtns">
+                        <h3>Experiência:</h3>
+                        <p>&emsp;Por enquanto, esse projeto. No entanto, é evidende ,como se pode ver acima, que eu aprendi bastante durante a confecção desse jogo. De qualquer forma, isso mudará em um futuro próximo.</p>
+                    </div>
+                    <div class="currelemtns" id="techinical">
+                        <h3>Comptências Técnicas:</h3>
+                        <p>• HTML (intermediário)</p>
+                        <p>• CSS - experiência com responsividade, css grid e flexbox.</p>
+                        <p>• Javascript (intermediário)</p>
+                        <p>• Node.js</p>
+                        <p>• Git</p>
+                        <p>• Linux</p>
+                        <p>• Cloud Computing (AWS)</p>
+                        <p>• Lógica de Programação e Estrutura de Dados</p>
+                    </div>
+                    <div class="currelemtns" id="languages">
+                        <h3>Idiomas:</h3>
+                        <p>Inglês Avançado</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <div class="pix-title">
+                <img id="pix" src="img/pix.png" alt="me-ajude-com-um-pix">
+            </div>
+            <div class="button" id="button-pix"><a href="emDesen.txt">Clique aqui para doar e contribuir com o projeto</a></div>
+            <h2>É ISSO SÓ,<br>  QUALQUER COISA ESTOU À DISPOSIÇÃO.</h2>
+            <div class="social-icon">
+                <a href=""><img class="imagens" src="img/facebook-b.webp" alt=""></a>
+                <a href=""><img class="imagens" src="img/twitter-b.webp" alt=""></a>
+                <a href=""><img class="imagens" src="img/instagram-b.webp" alt=""></a>
+            </div>
+            <h3>©2022 por Hang Twitter Game. Orgulhosamente criado por Lucas Janot ;P</h3>
+        </footer>
+    </body>
+</html>
