@@ -142,7 +142,7 @@ function searchWord(a){
 }
 
 function classify(x, a) {
-   const pythonchild = spawn('python', ['../twitter-bot/convert.py']); //usr/bin/python3.6
+   const pythonchild = spawn('/usr/bin/python3.6', ['../twitter-bot/convert.py']); //py
    pythonchild.stdin.setEncoding('utf8');
    pythonchild.stdout.setEncoding('utf8');
    x.tweets.push(a);
