@@ -48,6 +48,7 @@ options[2].addEventListener("click",function (){
 }, false)
 options[3].addEventListener("click",function (){ socket.emit("dica")}, false);
     socket.on("message", (x,y) => {
+        console.log("chamou o message event");
         if(y && typeof changeColor !== "undefined") changeColor.style.backgroundColor = "#FF6464";
         else if(typeof changeColor !== "undefined") changeColor.style.backgroundColor = "#91C483";
         for (let i = 0; i < x.length; i++) {
@@ -95,7 +96,10 @@ options[3].addEventListener("click",function (){ socket.emit("dica")}, false);
             gameUrl.href = url;
         })
 
-
+        
+        socket.on('teste', x=>{
+            console.log(x);
+        })
 function wordcontent(squareNumber){
     console.log("chamou a função");
     const wordLetter = document.querySelector("#word-c");

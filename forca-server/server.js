@@ -1,6 +1,6 @@
 const http = require('http');
 const url = require('url');
-const port = 8080;
+const port = 80;
 const fs = require('fs');
 const mimeTypes = require('mime-types').lookup;
 const { fork } = require('child_process');
@@ -44,21 +44,33 @@ server.listen(port,(err) => {
     else console.log('listening on port ' + port);
 })
 const io =require('socket.io')(server);
-   
-       io.on('connection', socket => {
-        const myInterval = setInterval(myTimer, 1000);
+
+    io.on('connection', socket => {
+        let chamou = 0;
+        const myInterval = setInterval(myTimer, 1700);
+        socket.on('disconnect', () => {
+            console.log('disconnect');
+            clearInterval(myInterval);
+            socket.removeAllListeners();
+          });
 
         function myTimer() {
-            if (secretWord && gameUrl) myStopFunction(secretWord, gameUrl);
+            chamou +=1;
+            console.log("chamou:" + chamou);
+            if (chamou > 4) clearInterval(myInterval);
+            if (secretWord && gameUrl){
+                clearInterval(myInterval);
+                myStopFunction(secretWord, gameUrl);
+            } 
         }
+
         function myStopFunction(p, url) {
             secretWord = '';
             gameUrl = '';
-            clearInterval(myInterval);
         console.log('new connection');
         function win(win) {
             socket.emit('fim', win);
-            socket.removeAllListeners();
+            socket.disconnect();
             pontuador=0;
             errorcounter=0;
         }
@@ -94,6 +106,7 @@ const io =require('socket.io')(server);
         console.log("a palavra é: " + p + ";");
         socket.emit("wordlen", p.length);
         socket.emit('URL', url);
+        socket.emit('teste', 'test');
         let word=[];
         for(let i in p){
             word[i] = '_';
@@ -129,7 +142,7 @@ function searchWord(a){
 }
 
 function classify(x, a) {
-   const pythonchild = spawn('py', ['../twitter-bot/convert.py']);
+   const pythonchild = spawn('python', ['../twitter-bot/convert.py']); //usr/bin/python3.6
    pythonchild.stdin.setEncoding('utf8');
    pythonchild.stdout.setEncoding('utf8');
    x.tweets.push(a);
