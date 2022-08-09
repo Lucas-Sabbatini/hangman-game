@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -59,10 +59,13 @@
 
         </div>
         <div class="box" id="interface">
-             <div class="button"><img src="img/game/settings.png" alt=""><div class="background"></div></div>
-             <div class="button"><img src="img/game/statics.png" alt=""><div class="background"></div></div>
-             <div class="button">?<div class="background"></div></div>
-             <div class="button"><img id="hint-image" src="img/game/hint.png" alt=""><div class="background"></div></div>
+             <div id="hide" class="button"><img id="pix-image" src="img/game/pix.png" alt=""><div class="background"></div></div>
+             <div id="hide" class="button"><img src="img/game/statics.png" alt=""><div class="background"></div></div>
+             <div id="hide" class="button">?<div class="background"></div></div>
+             <div id="hide" class="button"><img id="hint-image" src="img/game/hint.png" alt=""><div class="background"></div></div>
+             <div id="statics" class="button"><p>5</p> <br>acertos<div class="background"></div></div>
+             <div id="statics" class="button"><p>14%</p> de aproveitamento<div class="background"></div></div>
+             <div id="statics" class="button"><p>57%</p> em relação aos outros usuários<div class="background"></div></div>
         </div>
     </main>
     <section>
@@ -76,7 +79,7 @@
         Enfim, espero que goste, bom jogo!   :P
         </p>
     </section>
-    <script> const socket = io('http://localhost:80'); </script>  <!-- 82.180.136.30:80 -->
+    <script> const socket = io('http://82.180.136.30:80'); </script>  <!-- localhost:80 -->
     <script src="main.js"></script>
 </body>
 </html>

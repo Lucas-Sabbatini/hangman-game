@@ -8,6 +8,12 @@ const { spawn } = require('child_process');
 let searchedWord;
 let secretWord;
 let gameUrl;
+let acertos = 0;
+let jogos = 0;
+let media = Math.round((acertos / jogos) * 100);
+
+
+
 process.on('warning', e => console.warn(e.stack));
 
 
@@ -56,7 +62,6 @@ const io =require('socket.io')(server);
 
         function myTimer() {
             chamou +=1;
-            console.log("chamou:" + chamou);
             if (chamou > 4) clearInterval(myInterval);
             if (secretWord && gameUrl){
                 clearInterval(myInterval);
@@ -68,16 +73,20 @@ const io =require('socket.io')(server);
             secretWord = '';
             gameUrl = '';
         console.log('new connection');
+
         function win(win) {
+            acertos +=win;
+            jogos +=1;
+            media = Math.round((acertos / jogos) * 100);
             socket.emit('fim', win);
             socket.disconnect();
             pontuador=0;
             errorcounter=0;
         }
-        function mandarWord(word, errou){
-            socket.emit("message",word,errou);
+        function mandarWord(word, errou, index) {
+            socket.emit("message",word,errou,index);
         }
-        function forca(a,p){
+        function forca(a,p,index){
             if (errorcounter>6) return 0;
             let errou = true; 
                 for(let i=0; i<p.length; i++) {
@@ -94,7 +103,7 @@ const io =require('socket.io')(server);
                     socket.emit("error",errorcounter);
                     if (errorcounter===7) win(0);
                 }
-                mandarWord(word, errou);
+                mandarWord(word, errou,index);
                 if(pontuador==p.length){
                     win(1);
 
@@ -106,27 +115,34 @@ const io =require('socket.io')(server);
         console.log("a palavra é: " + p + ";");
         socket.emit("wordlen", p.length);
         socket.emit('URL', url);
-        socket.emit('teste', 'test');
+        socket.emit('statics', media);
         let word=[];
         for(let i in p){
             word[i] = '_';
         }
         mandarWord(word, false);
 
-        socket.on("palpite", palpite=> {
-            forca(palpite,p);
+        socket.on("palpite", (palpite,i)=> {
+            forca(palpite,p,i);
         })
         socket.on("dica",()=> {
             let possibleHints = [];
             for (let i in word){
                 if(word[i] === "_") possibleHints.push(i);
             }
-            forca(p[possibleHints[getRandomIntInclusive(0, possibleHints.length)]],p);
+            let dica  = p[possibleHints[getRandomIntInclusive(0, possibleHints.length)]]
+            forca(dica,p,getIndex(dica));
         })
         function getRandomIntInclusive(min, max) {
             min = Math.ceil(min);
             max = Math.floor(max);
             return Math.floor(Math.random() * (max - min)) + min;
+        }
+        function getIndex(dica) {
+            let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXY"
+            for (let i = 0; i < alphabet.length; i++){
+                if (alphabet[i] === dica) return i;
+            }
         }
     }
 })

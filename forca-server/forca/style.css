@@ -5,7 +5,7 @@
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #5e5e5e;
     font-weight: bold;
-    font-size: 1.25em;
+    font-size: 1.195em;
 }
 
 body {
@@ -90,6 +90,25 @@ section p{
     justify-content: center;
     align-items: center;
     cursor: pointer;
+}
+#hide{
+    display: flex;
+}
+#interface #statics.button{
+    font-size: 0.4em;
+    width: auto;
+    margin: 5px;
+    padding: 5px;
+    display: none;
+}
+#interface #statics.button p{
+    color: rgba(0, 0, 0, 0.738);
+    font-size: 2.4em;
+    margin-right: 3px;
+}
+
+#pix-image{
+    width: 75%;
 }
 .background{
     background-color: #9aa7b2;
@@ -229,7 +248,7 @@ section p{
 
 @media(max-width: 420px){
     *{
-        font-size: 1.25em;
+        font-size: 1.1em;
     }
     #interface .button{
         font-size: 40px;
@@ -259,7 +278,6 @@ section p{
     #interface{
         order: 4;
     }
-   
 }
 @media(max-width:370px){
     #final h2{
