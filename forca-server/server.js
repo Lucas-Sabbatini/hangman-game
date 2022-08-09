@@ -55,7 +55,6 @@ const io =require('socket.io')(server);
         let chamou = 0;
         const myInterval = setInterval(myTimer, 1700);
         socket.on('disconnect', () => {
-            console.log('disconnect');
             clearInterval(myInterval);
             socket.removeAllListeners();
           });
