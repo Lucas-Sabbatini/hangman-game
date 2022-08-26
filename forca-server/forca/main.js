@@ -53,7 +53,7 @@ for (let i of statics){
     }, false)
 }
 options[0].addEventListener("click", function(){
-    window.open("emDesen.txt", "_blank");
+    window.open("pix.html", "_blank");
 }, false)
 options[1].addEventListener("click", function(){
     calculateSettings();

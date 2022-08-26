@@ -26,8 +26,8 @@ const server = http.createServer((req, res) => {
     searchedWord = pathword[1];
     searchWord(searchedWord);
 } 
-   if (path =='') path = 'landpage.html';
-
+    console.log(path);
+   if (path =='' || path[1] == '?') path = 'landpage.html';
 
    let file = __dirname + '/forca/' +path;
    fs.readFile(file, (err, data) => {
@@ -49,6 +49,9 @@ server.listen(port,(err) => {
     if(err) console.log(err);
     else console.log('listening on port ' + port);
 })
+refreshTrends();
+setInterval(refreshTrends, 1800000);
+
 const io =require('socket.io')(server);
 
     io.on('connection', socket => {
@@ -64,7 +67,7 @@ const io =require('socket.io')(server);
             if (chamou > 4) clearInterval(myInterval);
             if (secretWord && gameUrl){
                 clearInterval(myInterval);
-                myStopFunction(secretWord, gameUrl);
+                myStopFunction("MILHÕES", gameUrl);
             } 
         }
 
@@ -130,7 +133,7 @@ const io =require('socket.io')(server);
                 if(word[i] === "_") possibleHints.push(i);
             }
             let dica  = p[possibleHints[getRandomIntInclusive(0, possibleHints.length)]]
-            forca(dica,p,getIndex(dica));
+            forca(dica.normalize('NFD').replace(/[\u0300-\u036f]/g, ""),p,getIndex(dica));
         })
         function getRandomIntInclusive(min, max) {
             min = Math.ceil(min);
@@ -138,9 +141,10 @@ const io =require('socket.io')(server);
             return Math.floor(Math.random() * (max - min)) + min;
         }
         function getIndex(dica) {
+            console.log("a dica é: " + dica);
             let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXY"
             for (let i = 0; i < alphabet.length; i++){
-                if (alphabet[i] === dica) return i;
+                if (alphabet[i] === dica.normalize('NFD').replace(/[\u0300-\u036f]/g, "")) return i;
             }
         }
     }
@@ -170,4 +174,10 @@ function classify(x, a) {
     gameUrl = `https://twitter.com/${x.users[parseInt(divided[1])]}/status/${x.ids[parseInt(divided[1])]}`;
 });
    pythonchild.stderr.on('data', (x)=>console.log("temos um erro: " + x));
+}
+
+
+function refreshTrends() {
+    const refreshProgram = fork('../twitter-bot/trending.js');
+    refreshProgram.on('data', (x)=>console.log("Erro no trending: " + x));
 }

@@ -34,7 +34,7 @@ function sendRequest(palavra) {
       
   })
     .catch(function (response) {
-    fs.writeFileSync('error.txt', JSON.stringify(response),(err)=>{if(err) throw err})
+    fs.writeFileSync('error.txt', JSON.stringify(response),(err)=>{if(err) throw err});
     process.exit();
       
   })
